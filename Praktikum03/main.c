@@ -19,6 +19,7 @@ int main()
 
     
     init();
+    displayDictionary();
     printf("%d \n",insert(1));
     displayDictionary();
     printf("%d \n",insert(3));

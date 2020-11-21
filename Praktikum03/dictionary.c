@@ -2,8 +2,9 @@
 #define SIZE 2
 
 typedef enum Flag{
-    free = 1,
-    used = 0
+    empty = 1,
+    taken = 0,
+    deleted = -1
 }FlagT;
 
 typedef struct Node{
@@ -18,87 +19,10 @@ void init()
 {
     NodeT n;
     n.storage = -1;
-    n.state = free;
+    n.state = empty;
     for(int i = 0; i < SIZE; i++)
     {
         dictionary[i] = n; 
-    }
-}
-
-int insert(int a)
-{
-    int position = a % SIZE;
-    if(dictionary[position].state == free)
-    {
-        NodeT new;
-        new.storage = a;
-        new.state = used;
-        dictionary[position] = new;    
-        return 1;
-    } else
-    {
-        for(int i = 0 ; i < SIZE ; i++){
-            if(position < SIZE){
-                position++;
-            } else
-            {
-                position = 0;
-            }
-            if(dictionary[position].state == free)
-                {
-                    NodeT new;
-                    new.storage = a;
-                    new.state = used;
-                    dictionary[position] = new;
-                    return 1;   
-                }
-        }
-    }
-    return 0;
-}
-
-int delete(int a)
-{
-    int position = a % SIZE;
-    if(dictionary[position].state == 0 && dictionary[position].storage == free)
-    {
-        dictionary[position].state = free;
-        dictionary[position].storage = -1;
-        return 1;
-    } else
-    {
-        int possiblePosition = findPositionOf(a);
-        if(possiblePosition == -1)
-        {
-            // Wert gar nicht vorhanden
-            return possiblePosition;
-        } 
-        else
-        {
-            // Wert gefunden, also loeschen 
-            dictionary[possiblePosition].state = free;
-            dictionary[possiblePosition].storage = -1;
-            return 1;
-        }
-    }
-}
-
-int member(int a)
-{
-    int position = a % SIZE;
-
-    // Hashposition leer, d.h. Wert nicht vorhanden
-    if(dictionary[position].state == free)
-    {
-        return 0;
-        // Hashposition nicht leer und Wert ist gleich gesuchter Wert, d.h. Wert gefunden
-    } else if(dictionary[position].state == used && dictionary[position].storage == a)
-    {
-        return 1;
-    } else
-    {
-        // sonst suche alle andere Hashpositionen und liefere die position oder ggf -1 , falls Wert nicht gefunden
-        return findPositionOf(a);
     }
 }
 
@@ -113,11 +37,88 @@ int findPositionOf(int a)
             {
                 position = 0;
             }
-            if(dictionary[position].state == free && dictionary[position].storage == a){
+            if(dictionary[position].state == taken && dictionary[position].storage == a){
                 return position;
             }
         }
     return -1;
+}
+
+int insert(int a)
+{
+    int position = a % SIZE;
+    if(dictionary[position].state == empty || dictionary[position].state == deleted)
+    {
+        NodeT new;
+        new.storage = a;
+        new.state = taken;
+        dictionary[position] = new;    
+        return 1;
+    } 
+        for(int i = 0 ; i < SIZE ; i++){
+            if(position < SIZE){
+                position++;
+            } else
+            {
+                position = 0;
+            }
+            if(dictionary[position].state == empty || dictionary[position].state == deleted)
+                {
+                    NodeT new;
+                    new.storage = a;
+                    new.state = taken;
+                    dictionary[position] = new;
+                    return 1;   
+                }
+        }
+
+    return 0;
+}
+
+int delete(int a)
+{
+    int position = a % SIZE;
+    if(dictionary[position].state == empty && dictionary[position].storage == a)
+    {
+        dictionary[position].state = deleted;
+        dictionary[position].storage = -1;
+        return 1;
+    } else
+    {
+        int possiblePosition = findPositionOf(a);
+        if(possiblePosition == -1)
+        {
+            // Wert gar nicht vorhanden
+            return possiblePosition;
+        } 
+        else
+        {
+            // Wert gefunden, also loeschen 
+            dictionary[possiblePosition].state = deleted;
+            dictionary[possiblePosition].storage = -1;
+            return 1;
+        }
+    }
+}
+
+int member(int a)
+{
+    int position = a % SIZE;
+
+    // Hashposition leer, d.h. Wert nicht vorhanden
+    if(dictionary[position].state == empty)
+    {
+        return 0;
+        // Hashposition nicht leer und Wert ist gleich gesuchter Wert, d.h. Wert gefunden
+    } else if(dictionary[position].state == taken && dictionary[position].storage == a)
+    {
+        return 1;
+    } else if(findPositionOf(a) != -1)
+    {
+        // sonst suche alle andere Hashpositionen und liefere die 1, falls gefunden, sonst 0
+        return 1;
+    }
+    return 0;
 }
 
 void displayDictionary()
