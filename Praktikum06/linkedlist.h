@@ -14,6 +14,7 @@ class LinkedList{
     const char *last();
     void visit_all(void (*work)(const char* t));
 
+    private:
     // interne Klasse
     class Node{
         public:
@@ -26,11 +27,9 @@ class LinkedList{
             text = nullptr;
         }
     };
-    
 
-    private:
+    // in C structs sind leichtgewichtige klasse, kein typedef notw.
     /*
-    typedef struct Node Node;
     struct Node{
         Node* next;
         Node* previous;

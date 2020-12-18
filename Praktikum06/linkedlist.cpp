@@ -12,8 +12,11 @@ LinkedList::LinkedList()
 
 int LinkedList::append(const char* text)
 {
-    //Node* node = new Node();
-    Node *node = (Node*) malloc(sizeof(Node));
+    // mit free(node) -> kein destruktoraufruf, nur speicher loeschen
+    // deswegen delete(node) und Element mit new statt malloc erzeugen
+
+    Node *node = new Node();
+    //Node *node = (Node*) malloc(sizeof(Node));
 
     if(node == nullptr) return 0;
     
@@ -21,17 +24,9 @@ int LinkedList::append(const char* text)
     size++;
 
     // keine Elemente
-    if(start == nullptr && end == nullptr)
+    if(start == nullptr)
     {
         start = end = node;
-        return 1;
-    }
-
-    // nur 1 Element
-    if(start == end)
-    {
-        start->next = node;
-        end = node;
         return 1;
     }
 
@@ -43,10 +38,10 @@ int LinkedList::append(const char* text)
 
 int LinkedList::insert(const char* text, int p)
 {
-    if(p >= size) append(text);
+    if(p >= size) return append(text);
 
-    //Node* newNode = new Node();
-    Node *newNode = (Node*) malloc(sizeof(Node));
+    Node *newNode = new Node();
+    //Node *newNode = (Node*) malloc(sizeof(Node));
     
     if(newNode == nullptr) return 0;
 
@@ -65,9 +60,8 @@ int LinkedList::insert(const char* text, int p)
 
     int counter = 0;
 
-    while(temp->next != nullptr)
+    while(temp != nullptr)
     {
-        //std::cout << temp->text << " counter:" << counter << std::endl;
         if(counter == p)
         {
             break;
@@ -76,19 +70,11 @@ int LinkedList::insert(const char* text, int p)
         temp = temp->next;
     }
     
-    //std::cout <<  std::endl <<"temp text = " << temp->text << " temp prev " << temp->prev->text << " temp next " << temp->next->text<< std::endl;
-
-    //Node *temp = temp->next;
-    
-    // [a] [NEW] [b] [c]
-    //           tmp
-
     newNode->prev = temp->prev;
     newNode->next = temp;
     temp->prev->next = newNode;
     temp->prev = newNode;
 
-    
     size++;
     return 1;
 }
@@ -97,28 +83,30 @@ int LinkedList::remove(int p)
 {
     if(p < 0) return -1;
     
-    Node *temp ;
+    Node *temp = start;
 
+    // Am Anfang loeschen
     if(p == 0)
     {
-        temp = start;
         start = start->next;
+        start->prev = nullptr;
         delete(temp);
         size--;
         return 1;
     }
-
-    if(p >= size)
+    // Am Ende loeschen
+    if(p >= size-1)
     {
         temp = end;
         end = end->prev;
+        end->next = nullptr;
         delete(temp);
         size--;
         return 1;
     }
 
     int counter = 0;
-    while(temp-> next != nullptr)
+    while(temp != nullptr)
     {
         if(counter == p)
         {
@@ -128,39 +116,27 @@ int LinkedList::remove(int p)
         temp = temp->next;
     }
 
-
-    // kein Nachfolger
-    if(temp->next == nullptr)
-    {
-        temp->prev = nullptr;
-        delete(temp);
-        size--;
-        return 1;
-    }
-
-    // hat Nachfolger
-
     temp->prev->next = temp->next;
-    temp->prev = temp->prev;
+    temp->next->prev = temp->prev;
 
     delete(temp);
     size--;
-    return 1;
 
+    return 1;
 }
 
 const char* LinkedList::get(int p)
 {
      if(size == 0 || p > size || p < 0)
      {
-         return "";
+         return nullptr;
      }
 
     
     Node *temp = start;
     int counter = 0;
 
-    while(temp->next != nullptr)
+    while(temp != nullptr)
     {
         if(counter == p)
         {
@@ -178,16 +154,17 @@ int LinkedList::index_of(const char *text)
 
     Node *temp = start;
 
-    int counter = 0;
+    int index = 0;
 
-    while(temp->next != nullptr)
+    while(temp != nullptr)
     {
-        // temp->text == text (ging am anfang??)
-        if(strcmp(temp->text,text))
+        // strcmp wie compareTo aus java, liefert -1,0,1 deswegen wenn strings gleich sind, kommt 0 -> "false" in c++
+        if(strcmp(temp->text,text) == 0)
         {
-            return counter;
+            return index;
         }
-        counter++;
+
+        index++;
         temp = temp->next;
     } 
 
@@ -196,13 +173,13 @@ int LinkedList::index_of(const char *text)
 
 const char* LinkedList::first()
 {
-    if(start == nullptr) return "";
+    if(start == nullptr) return nullptr;
     return start->text;
 }
 
 const char* LinkedList::last()
 {
-    if(end == nullptr) return "";
+    if(end == nullptr) return nullptr;
     return end->text;
 }
 
@@ -210,10 +187,9 @@ void LinkedList::visit_all(void (*work) (const char* t))
 {
     Node *temp = start;
 
-    while(temp->next != nullptr)
+    while(temp!=nullptr)
     {
         work(temp->text);
         temp = temp->next;
     }
-    work(temp->text);
 }

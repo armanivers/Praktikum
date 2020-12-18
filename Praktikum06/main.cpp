@@ -20,8 +20,6 @@ int main()
     list->append("d");
     list->append("e");
 
-    /*
-
     std::cout << "Anzahl Elemente: " << list->size << std::endl;
     std::cout << "Element erste Stelle: " << list->first() << std::endl;
     std::cout << "Element letzte Stelle: " << list->last() << std::endl;
@@ -40,9 +38,7 @@ int main()
     }
     std::cout << "------------------" << std::endl;
         
-    */
-
-    std::cout << "Einfuegen von [W] and pos[0] ist " << list->insert("W",0) << std::endl;
+    std::cout << "Einfuegen von [0] and pos[0] ist " << list->insert("0",0) << std::endl;
 
     for(int i = 0; i < list->size; i++)
     {
@@ -51,20 +47,48 @@ int main()
 
     std::cout << "------------------" << std::endl;
     
-    std::cout << "Einfuegen von [P] and pos[3] ist " << list->insert("P",2) << std::endl;
+    std::cout << "Einfuegen von [1] and pos[1] ist " << list->insert("1",1) << std::endl;
 
     for(int i = 0; i < list->size; i++)
     {
         std::cout << "Pos: " << i << " = " << list->get(i) << std::endl; 
     }
 
+    std::cout << "------------------" << std::endl;
+    
+    std::cout << "Einfuegen von [3] and pos[3] ist " << list->insert("3",3) << std::endl;
+
+    for(int i = 0; i < list->size; i++)
+    {
+        std::cout << "Pos: " << i << " = " << list->get(i) << std::endl; 
+    }
+    std::cout << "------------------" << std::endl;
     std::cout << "Visit all test " << std::endl;
     list->visit_all(print);
 
-    list->remove(0);
-    list->visit_all(print);
-    list->remove(1);
-    list->visit_all(print);
+    std::cout << "------------------" << std::endl;
+    
+    std::cout << "Loeschen von Element Pos[0] " << list->remove(0) << std::endl;
+    for(int i = 0; i < list->size; i++)
+    {
+        std::cout << "Pos: " << i << " = " << list->get(i) << std::endl; 
+    }
+
+    std::cout << "Loeschen von Element Pos[1] " << list->remove(1) << std::endl;
+
+    for(int i = 0; i < list->size; i++)
+    {
+        std::cout << "Pos: " << i << " = " << list->get(i) << std::endl; 
+    }
+
+    std::cout << "Loeschen von Element Pos[3] " << list->remove(3) << std::endl;
+
+    for(int i = 0; i < list->size; i++)
+    {
+        std::cout << "Pos: " << i << " = " << list->get(i) << std::endl; 
+    }
+
+    std::cout << "------------------" << std::endl;
 
     std::cout << "End of testing" << std::endl;
 
