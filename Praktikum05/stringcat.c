@@ -1,5 +1,10 @@
 char *stringcat (const char* str1, const char* str2)
 {
+
+    // dadurch dass Parameter const sind, werden sie nicht by reference uebergeben
+    // das bedeutet "schreibzugriff" auf variablen ist verboten
+    // zeiger immernoch veranderbar!
+
     int str1Size = 0;
     int str2Size = 0;
 

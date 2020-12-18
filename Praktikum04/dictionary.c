@@ -33,7 +33,7 @@ int insert(int a)
     int position = a % SIZE;
     NodeT* new = malloc(sizeof(NodeT));
 
-    if(new == 0)
+    if(new == NULL)
     {
         return 0;
     }

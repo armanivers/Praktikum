@@ -24,6 +24,7 @@ int countPointer(char s[])
             counter++;
         }
         i++;
+        // ALTERNATIV: s++; statt index
     }
     return counter;
 }
