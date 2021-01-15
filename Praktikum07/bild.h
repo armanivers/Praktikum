@@ -8,7 +8,7 @@ class Bild : public Medium {
 
     public:
     Bild(std::string titel, int jahr, std::string ort);
-
+    
     void druckeDaten() override;
 };
 #endif

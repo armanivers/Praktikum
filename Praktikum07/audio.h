@@ -8,8 +8,8 @@ class Audio : public Medium
     int dauer;
 
     public:
-    // hier : Medium(titel,jahr), interpret{interpret}, dauer{dauer}{} nach konstruktor schreiben?
-    Audio(std::string titel, int jahr, std::string interpret, int dauer) : Medium(titel,jahr), interpret{interpret}, dauer{dauer}{}
+    // Konstruktor nur so lassen, rest kommt in cpp
+    Audio(std::string titel, int jahr, std::string interpret, int dauer);
 
     void druckeDaten() override;
 };

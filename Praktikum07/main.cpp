@@ -3,7 +3,7 @@
 #include "bild.h"
 
 // lieber in CPP Datei implementieren!
-//int Medium::counter = 0;
+// int Medium::counter = 0;
 
 int main()
 {
@@ -12,6 +12,7 @@ int main()
     Bild *b = new Bild("Gebaeude FB Informatik",2018,"Dortmund");
     b->druckeDaten();
     
+    // Medium ist abstrakt, kann davon kein objekt/wertetyp erzeugt werden, deswegen muessen zeiger verwendet werden
     Medium *medien[2];
     medien[0] = a;
     medien[1] = b;
@@ -23,7 +24,6 @@ int main()
     audio.druckeDaten();
     Bild bild("Gebaeude FB Informatik",2018,"Dortmund");
     bild.druckeDaten();
-    
 
     return 0;
 }

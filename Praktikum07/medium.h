@@ -7,7 +7,8 @@
 class Medium
 {
     private:
-    int id;
+    // const = readonly (in java final)
+    const int id;
     static int counter;
 
     std::string titel;
@@ -16,25 +17,28 @@ class Medium
     public:
     Medium(std::string titel, int jahr);
 
-    // in der Klasse implementiert direkt inline!
+    virtual ~Medium(){}
+
+    // in der Klasse implementiert direkt inline und const!
     inline std::string getTitel() const
     {
         return titel;
     }
-    // nicht in der klasse implementiert, damit es inline ist muss "inline" hier stehen!
+
     inline int getJahr() const
     {
         return jahr;
     }
 
+    inline int getId() const
+    {
+        return id;
+    }
+
     /*
-    // wenn ich nicht inline schreiben und nur int getJahr() const {return jahr} automatisch inline weil implementeirt?
-    // inline immer in .h direk definieren oder geht es so zu machen und dann in .cpp zu erganzen
+    inline sollte immer in .h implementiert werden, es geht auch in cpp aber nicht schoen
     int getJahr();
     */
-
-    // einach virtuellen destruktor ohne nichts reicht?
-    virtual ~Medium();
 
     // in cpp implementieren
     int alter();

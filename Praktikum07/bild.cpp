@@ -4,6 +4,5 @@ Bild::Bild(std::string titel, int jahr, std::string ort) : Medium(titel, jahr), 
 
 void Bild::druckeDaten()
 {
-    Medium::druckeDaten();
-    std::cout << " aufgenommen in " << getJahr() << " in Jahr " << ort << std::endl;
+    std::cout  << "ID = " << getId() << " \"" << getTitel() <<  "\"" << " aufgenommen in " << getJahr() << " in Jahr " << ort << std::endl;
 }

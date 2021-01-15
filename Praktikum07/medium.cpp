@@ -3,20 +3,19 @@
 // static variable initialisieren
 int Medium::counter = 0;
 
-Medium::Medium(std::string titel, int jahr) : titel{titel}, jahr{jahr}
+Medium::Medium(std::string titel, int jahr) : titel{titel}, jahr{jahr}, id{counter++}
 {
-    id = counter;
-    counter++;
+    // id ist readonly (const) und es kann nicht im konstruktor normal gesetzt werden, deswegen oben in der konstruktorliste!
+    
+    // id = counter;
+    // counter++;
 }
 
-// reicht das? Ist das uberhaupt notwendig?
-Medium::~Medium()
-{
-
-}
+// reicht in .h falls Destruktor kein inhalt bestizt, sonst cpp
+// Medium::~Medium(){}
 
 /*
-// nicht in der klasse implementiert, damit es inline ist muss "inline" hier stehen!
+//inline kann in cpp implementiert werden, schoner aber direkt in .h
 inline int Medium::getJahr() const
 {
     return jahr;
@@ -25,10 +24,12 @@ inline int Medium::getJahr() const
 
 int Medium::alter()
 {
-    return 2020 - getJahr();
+    return 2021 - getJahr();
 }
 
-void Medium::druckeDaten()
-{
-    std::cout << "ID = " << id << " \"" << titel << "\""; // << std::end;
-}
+// pure virtual keine implementierung!
+
+//void Medium::druckeDaten()
+//{
+//    std::cout << "ID = " << id << " \"" << titel << "\""; // << std::end;
+//}
