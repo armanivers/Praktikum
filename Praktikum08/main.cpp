@@ -10,6 +10,9 @@ int main()
 {
     using namespace std;
     using namespace fhdo_pk2;
+
+    cout << "Start" << endl;
+    
     LinkedList liste;
 
     liste.append("Element 1");
@@ -28,6 +31,8 @@ int main()
     cout << "Liste2:"<< endl;
     
     liste2.visit_all(print);
+
+    cout <<"Ende"<< endl;
 
     return 0;
 }

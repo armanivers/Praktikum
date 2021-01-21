@@ -7,14 +7,13 @@ using namespace fhdo_pk2;
 
 LinkedList::LinkedList()
 {
+    std::cout << "Konstruktor" << std::endl;
     start = nullptr;
     end = nullptr;
     size = 0;
 }
 
-// wird konstruktor oben aufgerufen mit LinkedList{}?? warum notwendig, wegen dem setzen von start,end und size?
-// hierfur musste ich Node start/end public setzen in .h, sollte aber nicht der fall sein? vielleicht liber ein getter?
-// und dafur musste ich erst private: internal class node schreiben, geht es wenn ich erst public danach private attribute setze? 
+// das :LinkedList{} wegen "dry" rule -> (dont repeat yourself) -> bestehende konstruktoren nutzen satt 2 mal das gleiche programmieren
 LinkedList::LinkedList(const LinkedList& orig):LinkedList{}
 {
     Node *n = orig.start;
@@ -26,7 +25,6 @@ LinkedList::LinkedList(const LinkedList& orig):LinkedList{}
 
 }
 
-// Speicherfehler??
 LinkedList::~LinkedList()
 {
     std::cout << "Destructor" << std::endl;
@@ -104,7 +102,8 @@ int LinkedList::insert(const char* text, int p)
 
 int LinkedList::remove(int p)
 {
-    if(p < 0 || start == nullptr) return -1;
+    // size > 0 und return 0 statt -1
+    if(p < 0 || start == nullptr || size > 0) return 0;
     
     Node *temp = start;
 
@@ -232,4 +231,6 @@ void LinkedList::visit_all(void (*work) (const char* t))
     {
         work(it->next());
     }
+
+    delete(it);
 }

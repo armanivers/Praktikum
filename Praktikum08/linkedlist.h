@@ -28,6 +28,9 @@ class LinkedList{
         const char* next() override;
     };
 
+    Node *start;
+    Node *end;
+
     public:
     int size;
 
@@ -43,9 +46,6 @@ class LinkedList{
     const char *first();
     const char *last();
     void visit_all(void (*work)(const char* t));
-
-    Node *start;
-    Node *end;
 
     Iterator* iterator();
 };
