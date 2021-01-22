@@ -1,11 +1,61 @@
-#include <cstdlib>
-#include "linkedlist.h"
-#include <iostream>
-#include <string.h>
+#ifndef _LINKEDLIST_
+#define _LINKEDLIST_
+#include "iterator.h"
+#include "iostream"
 
-using namespace fhdo_pk2;
+namespace fhdo_pk2{
 
-LinkedList::LinkedList()
+template <class T>
+class LinkedList{
+
+    private:
+    class Node{
+        public:
+        Node *next;
+        Node *prev;
+        T text;
+        Node(){
+            next = nullptr;
+            prev = nullptr;
+            text = nullptr;
+        }
+    };
+    
+    class ListIterator: public Iterator<T>{
+        private:
+        Node *element;
+
+        public:
+        ListIterator(Node* element): element{element}{}
+        bool hasNext() override;
+        T next() override;
+    };
+
+    Node *start;
+    Node *end;
+
+    public:
+    int size;
+
+    LinkedList();
+    LinkedList(const LinkedList& orig);
+    ~LinkedList();
+
+    int append(const T text);
+    int insert(const T text, int p);
+    int remove(int p);
+    T get(int p);
+    int index_of(T text);
+    T first();
+    T last();
+    void visit_all(void (*work)(T t));
+
+    Iterator<T>* iterator();
+};
+
+
+template<class T>
+LinkedList<T>::LinkedList()
 {
     std::cout << "Konstruktor" << std::endl;
     start = nullptr;
@@ -13,8 +63,8 @@ LinkedList::LinkedList()
     size = 0;
 }
 
-// das :LinkedList{} wegen "dry" rule -> (dont repeat yourself) -> bestehende konstruktoren nutzen satt 2 mal das gleiche programmieren
-LinkedList::LinkedList(const LinkedList& orig):LinkedList{}
+template<class T>
+LinkedList<T>::LinkedList(const LinkedList& orig):LinkedList()
 {
     Node *n = orig.start;
     while(n != nullptr)
@@ -22,16 +72,17 @@ LinkedList::LinkedList(const LinkedList& orig):LinkedList{}
         this->append(n->text);
         n = n->next;
     }
-
 }
 
-LinkedList::~LinkedList()
+template<class T>
+LinkedList<T>::~LinkedList()
 {
     std::cout << "Destructor" << std::endl;
     while(remove(0));
 }
 
-int LinkedList::append(const char* text)
+template<class T>
+int LinkedList<T>::append(T text)
 {
     // mit free(node) -> kein destruktoraufruf, nur speicher loeschen
     // deswegen delete(node) und Element mit new statt malloc erzeugen
@@ -57,7 +108,8 @@ int LinkedList::append(const char* text)
     return 1;
 }
 
-int LinkedList::insert(const char* text, int p)
+template<class T>
+int LinkedList<T>::insert(T text, int p)
 {
     if(p >= size) return append(text);
 
@@ -100,7 +152,8 @@ int LinkedList::insert(const char* text, int p)
     return 1;
 }
 
-int LinkedList::remove(int p)
+template<class T>
+int LinkedList<T>::remove(int p)
 {
     if(p < 0 || start == nullptr) return 0;
     
@@ -119,7 +172,7 @@ int LinkedList::remove(int p)
         {
             start = end = nullptr;
         }
-
+        
         delete(temp);
         size--;
         return 1;
@@ -155,7 +208,8 @@ int LinkedList::remove(int p)
     return 1;
 }
 
-const char* LinkedList::get(int p)
+template<class T>
+T LinkedList<T>::get(int p)
 {
      if(size == 0 || p > size || p < 0)
      {
@@ -178,7 +232,8 @@ const char* LinkedList::get(int p)
     return temp->text;
 }
 
-int LinkedList::index_of(const char *text)
+template<class T>
+int LinkedList<T>::index_of(T text)
 {
     if(size == 0) return -1;
 
@@ -201,39 +256,45 @@ int LinkedList::index_of(const char *text)
     return -1;
 }
 
-const char* LinkedList::first()
+template<class T>
+T LinkedList<T>::first()
 {
     if(start == nullptr) return nullptr;
     return start->text;
 }
 
-const char* LinkedList::last()
+template<class T>
+T LinkedList<T>::last()
 {
     if(end == nullptr) return nullptr;
     return end->text;
 }
 
 // Iteratoren
-Iterator* LinkedList::iterator()
+template<class T>
+Iterator<T>* LinkedList<T>::iterator()
 {
     return new ListIterator(this->start); 
 }
 
-bool LinkedList::ListIterator::hasNext()
+template<class T>
+bool LinkedList<T>::ListIterator::hasNext()
 {
     return (element != nullptr);
 }
 
-const char* LinkedList::ListIterator::next()
+template<class T>
+T LinkedList<T>::ListIterator::next()
 {
     Node *temp = element;
     element = element->next;
     return temp->text;
 }
 
-void LinkedList::visit_all(void (*work) (const char* t))
+template<class T>
+void LinkedList<T>::visit_all(void (*work) (T t))
 {
-   Iterator* it = iterator();
+   Iterator<T>* it = iterator();
 
     while(it->hasNext())
     {
@@ -242,3 +303,6 @@ void LinkedList::visit_all(void (*work) (const char* t))
 
     delete(it);
 }
+
+} // ende von namespace
+#endif

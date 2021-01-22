@@ -102,7 +102,8 @@ int LinkedList::insert(const char* text, int p)
 
 int LinkedList::remove(int p)
 {
-    if(p < 0 || start == nullptr) return 0;
+    // size > 0 und return 0 statt -1
+    if(p < 0 || start == nullptr || size > 0) return 0;
     
     Node *temp = start;
 
@@ -110,16 +111,7 @@ int LinkedList::remove(int p)
     if(p == 0)
     {
         start = start->next;
-
-        if(start != nullptr)
-        {
-            start->prev = nullptr;
-        }
-        else
-        {
-            start = end = nullptr;
-        }
-
+        start->prev = nullptr;
         delete(temp);
         size--;
         return 1;
