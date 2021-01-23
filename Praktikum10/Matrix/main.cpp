@@ -6,13 +6,17 @@ int main()
     using namespace fhdo_pk2;
 
     Matrix<int> m1(2);
-
     m1.set(0,0,1);
     m1.set(0,1,2);
     m1.set(1,0,3);
     m1.set(1,1,4);
 
     Matrix<int> m2 = m1;
+
+    Matrix<int> m3(3);
+    m3.set(0,0,1);
+    m3.set(0,1,2);
+    m3.set(1,0,3);
 
     // Kopy Konstruktor Test
     std::cout << m1 << std::endl;

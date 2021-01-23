@@ -1,6 +1,8 @@
 #ifndef _MATRIX_H
 #define _MATRIX_H
+
 #include <iostream>
+#include "exception.h"
 
 namespace fhdo_pk2{
 
@@ -127,7 +129,7 @@ namespace fhdo_pk2{
 
         if (m1.getDimension() != m2.getDimension())
         {
-            // do something? return zero matrix?
+            throw invalid_dimensions("Different Dimensions!");
         }
 
         int n = m1.getDimension();
@@ -182,7 +184,7 @@ namespace fhdo_pk2{
     {
         if(m1.getDimension() != m2.getDimension())
         {
-            // return zero matrix
+            throw invalid_dimensions("Different Dimensions!");
         }
 
         int n = m1.getDimension();
@@ -205,7 +207,7 @@ namespace fhdo_pk2{
     {
         if(m1.getDimension() != m2.getDimension())
         {
-            // return zero matrix
+            throw invalid_dimensions("Different Dimensions!");
         }
 
         int n = m1.getDimension();
