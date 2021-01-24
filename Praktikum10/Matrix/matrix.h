@@ -28,6 +28,7 @@ namespace fhdo_pk2{
         
 
         // muss const sein!
+        // warum nur in hier uberladbar und nicht draussen wie ostream<<
         T* operator[](int index) const
         {
             if(index < 0 || index > this->getDimension())
@@ -176,6 +177,7 @@ namespace fhdo_pk2{
             ausgabe << "|" <<std::endl;
         }
 
+        // warum geht hier das uberladen ausserhalb ohne friend und hat zugriff auf die priavet attribute?
         return ausgabe;
     }
 
