@@ -13,6 +13,9 @@ int main()
 
     Matrix<int> m2 = m1;
 
+    // das geht NICHT, muss ich move/copy konstruktor (= operator) uberladen?
+    // m1 = m1*m1
+
     Matrix<int> m3(3);
     m3.set(0,0,1);
     m3.set(0,1,2);
@@ -20,10 +23,10 @@ int main()
 
     // Kopy Konstruktor Test
     std::cout << m1 << std::endl;
-    std::cout << m2 << std::endl;
+    //std::cout << m2 << std::endl;
 
     // Multiplikation
-    std::cout << m1 << "*" << std::endl << m1 << "=" << std::endl << m1*m1;
+    //std::cout << m1 << "*" << std::endl << m1 << "=" << std::endl << m1*m1;
 
     // Addition
     //std::cout << m1 << "+" << std::endl << m1 << "=" << std::endl << m1+m1;
@@ -31,9 +34,17 @@ int main()
     // Subtraktion
     //std::cout << m1 << "-" << std::endl << m1 << "=" << std::endl << m1-m1;
 
-    // Power of (^)
-    //std::cout << m1 << "power of 0 is " << std::endl << (m1^0) << std::endl;
+    // Power of (^ Operator)
+    int power = 1;
+    std::cout << "power of " << power << " of Matrix " 
+    << std::endl << m1 
 
+    // HIER WIRD COPY KONSTRUKTOR AUFGERUFEN, WEIL RESULT AUS DER FUNKTION IN DER MAIN RUEBERKOPIERT WIRD!
+
+    << " is " << std::endl << (m1^1) 
+    << std::endl;
+
+    //std::cout << m1 << "*" << std::endl << m1 << "=" << std::endl << m1*m1;
     // "==" operator (equals)
     //std::cout << m1 << "-" << std::endl << m2 << "are equal? " << (m1==m2) << std::endl;
     

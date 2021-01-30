@@ -1,6 +1,7 @@
 #include "string.h"
-using namespace fhdo_pk2;
 #include <iostream>
+using namespace fhdo_pk2;
+
 String::String()
 {
     std::cout << "Konstruktor 1" << std::endl;
@@ -15,8 +16,7 @@ String::String(const char* s)
     size = strlen(s);
     str = new char[size];
 
-    //strcpy(s,str);
-    
+    //strcpy(str,s);
     
     const char *temp = s;
     int i = 0;

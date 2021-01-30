@@ -29,6 +29,11 @@ namespace fhdo_pk2{
 
         // muss const sein!
         // warum nur in hier uberladbar und nicht draussen wie ostream<<
+        
+        // T gibt pointer zuruck und nicht referenz wie in vorlesung???
+        // referenz uberegeben wenn man schreibzugriff man will (z.b medium 42=4 (Refernz = wert))
+        // Reefernz = Referenz wird zu Referenz = Referenz -> Referenz = Referenz.getWert()
+
         T* operator[](int index) const
         {
             if(index < 0 || index > this->getDimension())
@@ -38,7 +43,12 @@ namespace fhdo_pk2{
 
             return m[index];
         }
+        /*
+        friend std::ostream& operator<<(std::ostream& ausgabe, const Matrix<T>& m)
+        {
 
+        }
+        */
         // Getter/Setter
 
         // warum muss das unbedingt const sein? (sonst Fehler bei operator* wo ich getDimension() Aufrufe)
@@ -124,6 +134,9 @@ namespace fhdo_pk2{
 
 
     // kommt kein Matrix<T> Matrix<T>:: vorne?
+    // teste, geht als elemtfunktion
+    //Matrix<T> operator*(const Matrix<T> &m2);
+
     template<class T>
     Matrix<T> operator*(const Matrix<T> &m1,const Matrix<T> &m2)
     {
@@ -234,10 +247,13 @@ namespace fhdo_pk2{
         if(number < 0) return m;
 
         // return zero matrix;
-        if(number == 0) return Matrix<T> (m.getDimension());
-
+        if(number == 0) 
+        {
+            return Matrix<T> (m.getDimension());
+        }
+        
         int n = m.getDimension();
-
+        Matrix<T> result(n);    
         for(int z = 0; z < n; z++)
         {
             for(int s = 0; s < n; s++)
@@ -245,12 +261,12 @@ namespace fhdo_pk2{
                 // power of 
                 for(int i = 0; i < number-1; i++)
                 {
-                     m[z][s] *=m[z][s];
+                     result[z][s] *=m[z][s];
                 }
             }
         }
 
-        return m;
+        return result;
     }
     
 

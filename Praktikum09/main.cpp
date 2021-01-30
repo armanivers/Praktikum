@@ -25,8 +25,8 @@ int main()
     Bild bild2("Bild_Name2",2010,"Dortmund");
 
     // dynamisch
-    // LinkedList<Medium*> medien = new LinkedList<Medium*>();  
-    // LinkedList<Medium> *medien = new LinkedList<Medium>();
+    // nur punkt durch -> ersetzen, jedoch statisch schoener, weil sich der destruktor selbst aufruft am ende der methode
+    // LinkedList<Medium*> *medien = new LinkedList<Medium*>(); 
 
     // statisch
     LinkedList<Medium*> medien;
@@ -43,7 +43,10 @@ int main()
 
     medien.visit_all(print);
 
-    // Elemente loeschen? (for schleife und remove(i)?)
+
+    // Medium geht nicht, weil bei leere liste kann man nicht nullptr geben, also Medium->nullptr
+
+    // Elemente loeschen? nicht notwendig, destruktor ruft sich selbst auf
 
     cout << "Ende" << endl;
     
