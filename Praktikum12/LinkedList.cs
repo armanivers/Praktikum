@@ -119,7 +119,6 @@ namespace Praktikum12
 
        public void VisitAllIterator()
        {
-           // hier mit delegate -> wie in c++ (funktion ubergeben koennen)
            I_Iterator<T> iterator = Iterator();
 
            while(iterator.HasNext())
@@ -127,6 +126,19 @@ namespace Praktikum12
                Console.WriteLine(iterator.Next());
            }
        }
+
+
+        // hier mit delegate -> wie in c++ (funktion ubergeben koennen)
+       public void VisitAllDelegate(myDelType<T> Work)
+       {
+           I_Iterator<T> iterator = Iterator();
+
+           while(iterator.HasNext())
+           {
+               Work(iterator.Next());
+           }
+       }
+       
 
     
        public ListIterator Iterator()

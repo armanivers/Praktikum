@@ -7,6 +7,7 @@ namespace Praktikum13
         static void Main(string[] args)
         {
             Fuhrpark park = new Fuhrpark();
+            Info info = new Info(park);
 
             for(int i = 0; i < 10; i++)
             {

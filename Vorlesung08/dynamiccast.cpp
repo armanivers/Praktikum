@@ -1,6 +1,6 @@
 using namespace std;
 
-#include <isostream>
+#include <iostream>
 
 class X{
     public:
