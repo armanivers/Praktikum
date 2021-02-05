@@ -10,8 +10,7 @@ namespace Praktikum13
 
         // mann kann sich die Delegate Schablone ersparen, indem man einen Eventhandler nutzt
         // hier werden die EventArgs spezifiziert und delegate+event als schablone verwendet
-        
-        //public event EventHandler<FuhrparkEventArgs> AutoAufgenommenEventHandler;
+        public event EventHandler<FuhrparkEventArgs> AutoAufgenommenEventHandler;
 
         private LinkedList<Auto> autos;
         public Fuhrpark()
