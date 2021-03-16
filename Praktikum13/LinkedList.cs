@@ -71,6 +71,15 @@ namespace Praktikum13
             return true;
        }
 
+       public T GetT(int p)
+       {
+           Node temp = start;
+           for(int i = 0; i < p ; i++)
+           {
+               temp = temp.next;
+           } 
+           return temp.data;
+       }
        public bool Remove(int position)
        {
             // ungueltige Position oder leere Liste

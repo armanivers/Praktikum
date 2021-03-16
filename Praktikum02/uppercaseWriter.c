@@ -4,6 +4,7 @@
 char to_upper_case(char c)
 {
     return c-32;
+    // ((int)c)-32; ist nicht notwendig
 }
 
 void upper(char text[])

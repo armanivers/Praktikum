@@ -18,7 +18,9 @@ namespace Praktikum13
 
             park.Inventur();
 
-            Console.Write("Flottenalter = "+park.BerechneFlottenalter());
+            Console.WriteLine("Flottenalter = "+park.BerechneFlottenalter());
+
+            Console.WriteLine(park[0].ToString());
         }
     }
 }

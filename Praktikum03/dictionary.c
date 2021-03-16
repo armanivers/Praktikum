@@ -78,7 +78,8 @@ int insert(int a)
 int delete(int a)
 {
     int position = a % SIZE;
-    if(dictionary[position].state == empty && dictionary[position].storage == a)
+    // fruher war statt taken -> empty, was eigentlich falsch ist
+    if(dictionary[position].state == taken && dictionary[position].storage == a)
     {
         dictionary[position].state = deleted;
         dictionary[position].storage = -1;

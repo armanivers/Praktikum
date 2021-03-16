@@ -6,6 +6,8 @@ int main()
     int& ref = a;
     ref=1;
     ref++;
-    std::cout << "a=" << a << std::endl;
+    std::cout << "Referenz a=" << ref << " Original a=" << a<< std::endl;
     return 0;
 }
+
+//g++ -o main main.cpp

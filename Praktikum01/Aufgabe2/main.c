@@ -5,8 +5,10 @@
 
 int main()
 {
-    //ascii(10);
-    multiply(10,20);
+    ascii(10);
+    printf("ENDE \n");
+    asciiTest(10);
+    //multiply(10,20);
     // prevent closing
     //_getch();
     return 0;

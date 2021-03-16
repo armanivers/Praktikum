@@ -1,5 +1,7 @@
-#include <iostream>
+#ifndef _STACK_H_
+#define _STACK_H_
 
+#include <iostream>
 #include "exception.h"
 template <class T>
 
@@ -21,9 +23,11 @@ public:
   int push(T key);
   T pop();
 };
+#endif
 
 template <class T>
-Stack<T>::Stack() : top{nullptr} {}
+Stack<T>::Stack() : top{nullptr} {std::cout << "Konstruktor" << std::endl;}
+
 template <class T>
 Stack<T>::~Stack()
 {
@@ -31,6 +35,8 @@ Stack<T>::~Stack()
   {
     pop();
   }
+
+  std::cout << "Destruktor" << std::endl;
 }
 
 template <class T>
@@ -48,6 +54,7 @@ Stack<T>::Stack(const Stack &orig) : Stack{}
   {
     push(tmp.pop());
   }
+  std::cout << "Copy-Konstruktor" << std::endl;
 }
 
 template <class T>
@@ -56,6 +63,8 @@ int Stack<T>::push(T k)
   element *neu = new element{k, top};
   if (neu)
   {
+    // brauche ich das nicht??
+    //neu->next = top;
     top = neu;
     return 1;
   }

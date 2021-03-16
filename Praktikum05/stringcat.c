@@ -43,3 +43,40 @@ char *stringcat (const char* str1, const char* str2)
 
     return concat;
 }
+
+char *stringcatAlt(const char* str1, const char* str2)
+{
+    int size = 1;
+    int i = 0;
+
+    while(*(str1+i) != '\0')
+    { 
+        size++;
+        i++;
+    }
+    i=0;
+    while(*(str2+i) != '\0')
+    { 
+        size++;
+        i++;
+    }
+    i=0;
+
+    char* result = malloc(sizeof(char)*size);
+
+    while(*str1!='\0')
+    {
+        result[i] = *str1;
+        i++;
+        str1++;
+    }
+    while(*str2!='\0')
+    {
+        result[i] = *str2;
+        i++;
+        str2++;
+    }
+    i++;
+    result[i] = '\0';
+    return result;
+}

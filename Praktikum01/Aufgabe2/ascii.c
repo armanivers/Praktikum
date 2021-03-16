@@ -15,3 +15,27 @@ void ascii(int s)
         counter++;
     }
 }
+
+void asciiTest(int s)
+{
+    /*
+    char c = (char)32;
+    printf("%d %c",c,c);
+    c++;
+    printf("%d %c",c,c);
+    int zahl = (int)c;
+    printf("%d %d",zahl,c);
+    */
+
+    char c = 32;
+    while( ((int) c) < 126)
+    {
+        for(int i = 0; ((i < s) && ((int)c) < 126); i++)
+        {
+            printf("%d     %c ",c,c);
+            c++;
+        }
+        printf("\n");
+    }
+    
+}

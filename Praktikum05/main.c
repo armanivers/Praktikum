@@ -22,8 +22,10 @@ int main()
     char array2[] = "Welt";
 
     char *result = stringcat(array1,array2);
+    char *resultAlt = stringcatAlt(array1,array2);
     // Methode 1
     printf("A3: Concat = %s \n",result);
+    printf("A3: ConcatAlt = %s \n",resultAlt);
     // Methode 2: dadurch dass const erwartet wird, ist sowas moglich
     printf("A3: Const Test = %s \n",stringcat("Hallo ","das ist ein test"));
     // Methode 3:

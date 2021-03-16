@@ -1,0 +1,2 @@
+Onedrive doesnt support .git named folders (folders starting with ".")
+-> rename git to .git again when using github push/pull!

@@ -1,4 +1,4 @@
-main: main.cpp matrix.h exception.h
+main: main.cpp matrix.h
 	g++ main.cpp -o main
 
 clean:

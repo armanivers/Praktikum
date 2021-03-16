@@ -18,6 +18,14 @@ namespace Praktikum13
             autos = new LinkedList<Auto>();
         }
 
+        public Auto this[int i]
+        {
+            get{
+                Console.WriteLine("ZUGIRFF AUF INDEX {0}",i);
+                OnAutoAufgenommen(new FuhrparkEventArgs(new Auto("h",1)));
+                return autos.GetT(i);
+            }
+        }
         public void Aufnehmen(Auto a)
         {
             autos.Add(a);
